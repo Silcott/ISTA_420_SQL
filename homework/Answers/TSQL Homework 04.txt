@@ -1,0 +1,80 @@
+-- Name: James Silcott
+-- Homework: ISTA420-04
+-- Date: July 21, 2020
+
+Chapter 4:
+1. In your own words, what is a subquery?
+query within another SQL query
+
+
+
+2. In your own words, what is a self contained subquery?
+completely independent and do not require any input from outer query,
+http://dinesql.blogspot.com/2014/02/types-of-sql-server-sub-queries-self.html
+
+
+
+3. In your own words, what is a correlated subquery?
+a query that requires an input from its outer query.
+http://dinesql.blogspot.com/2014/02/types-of-sql-server-sub-queries-self.html
+
+
+
+4. Give an example of a subquery that returns a single value. When would you use this kind of subquery?
+A scalar subquery is a subquery that returns a single value. Such a subquery can appear anywhere in
+the outer query where a single-valued expression can appear (such as WHERE or SELECT).
+
+
+
+5. Give an example of a subquery that returns multiple values. When would you use this kind of subquery?
+A multivalued subquery is a subquery that returns multiple values as a single column. Some predicates,
+such as the IN predicate, operate on a multivalued subquery.
+
+suppose you need to write a query that
+returns orders placed by customers from the United States.
+
+6. Give an example of a subquery that returns table values. When would you use this kind of subquery?
+Correlated subqueries are subqueries that refer to attributes from the tables that appear in the outer query.
+This means the subquery is dependent on the outer query and cannot be invoked independently
+
+
+
+7. What does the exists predicate do? Give an example.
+The EXISTS operator is used to test for the existence of any record in a subquery.
+The EXISTS operator returns true if the subquery returns one or more records.
+The following SQL statement returns TRUE and lists the suppliers with a product price less than 20:
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price < 20);
+
+8. What happens if we use the not operator before a predicate? Give an example.
+FALSE,UNKNOWN
+
+
+9. When you use exists or not exists with respect to a row in a database, does it return two or three values? 
+EXISTS uses two-valued predicate logic. EXISTS always returns TRUE or FALSE
+and never UNKNOWN.
+Explain your answer.
+When the subquery stumbles into a NULL in O.custid, the expression evalu-
+ates to UNKNOWN and the row is filtered out. As far as the EXISTS predicate is concerned, the NULL
+cases are eliminated naturally, as though they weren’t there. So EXISTS ends up handling only known
+customer IDs. Therefore, it’s safer to use NOT EXISTS than NOT IN.
+
+
+
+10. How would you use a subquery to calculate aggregates? For example, you want to calculate yearly
+sales of a product, and you also want to keep a running sum of total sales. 
+
+
+SELECT orderyear, qty,
+(SELECT SUM(O2.qty)
+FROM Sales.OrderTotalsByYear AS O2
+WHERE O2.orderyear <= O1.orderyear) AS runqty
+FROM Sales.OrderTotalsByYear AS O1
+ORDER BY orderyear;
+
+Explain how you would use a subquery to do this.
+
+
+
+
