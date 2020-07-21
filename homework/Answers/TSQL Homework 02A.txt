@@ -1,0 +1,103 @@
+-- Name: James Silcott
+-- Homework: TSQL 02A
+-- Date: July 8, 2020
+
+
+
+1. List the order of execution of a SQL query
+FROM
+WHERE
+GROUP BY
+HAVING
+SELECT
+ORDER BY
+*Start with SELECT.  Reason why? Book says it's more like English language and so you can start with what you are working with.
+
+2. What does the FROM clause do?
+The FROM clause is the very first query clause that is logically processed. In this clause, you specify the
+names of the tables you want to query and table operators that operate on those tables. 
+*Grabs every single row in a table.
+*example Sales.Orders
+*Sales is the schmea and Orders is the table
+[Database]Schema.Table
+
+
+3. What does the WHERE clause do?
+In the WHERE clause, you specify a predicate or logical expression to filter the rows returned by the
+FROM phase
+*Predicate evalutes if the value is true
+*Where clause has a predicate that either evaluates to true or false and the database looks at the 
+*fields and if the value in that field is false then athat value is discarded
+
+4. What does the GROUP BY clause do?
+You can use the GROUP BY phase to arrange the rows returned by the previous logical query pro-
+cessing phase in groups. The groups are determined by the elements you specify in the GROUP BY
+clause.  
+*Combines the rows into a set (unique values, no duplicates) mathematically after excution as specfied
+*Combines rows into groups according to specification you pass through
+*Can only select attricutest hat you selcet by the group by clause 
+
+5. What does HAVING clause do?
+Whereas the WHERE clause is a row filter, the HAVING clause is a group filter. Only groups for which
+the HAVING predicate evaluates to TRUE are returned by the HAVING phase to the next logical query
+processing phase. Groups for which the predicate evaluates to FALSE or UNKNOWN are discarded
+*Group filter, returns true or false
+*COUNT counts all the rows in each group and 
+*example HAVING COUNT(*) >1
+*COUNT is the predicate, if the count of number of rows is greater than one then it returns that group 
+(not the number of rows)
+
+6. What does SELECT clause do?
+The SELECT clause is where you specify the attributes (columns) you want to return in the result table of
+the query. You can base the expressions in the SELECT list on attributes from the queried tables, with or
+without further manipulation.
+
+7. What does DISTINCT keyword do?
+SQL provides the means to remove duplicates using the DISTINCT clause (as shown in Listing 2-3)
+and, in this sense, return a relational result
+*Returns only distinct values, which is the first one the computer sees and you don't know which one you'll get
+
+8. What does the ORDER BY clause do?
+You use the ORDER BY clause to sort the rows in the output for presentation purposes. In terms of
+logical query processing, ORDER BY is the very last clause to be processed
+*sorts the records for the human being ont he other end, nothing to do witht hte query
+
+9. What does the LIMIT clause do?
+SQL | LIMIT Clause
+The LIMIT clause is used to set an upper limit on the number of tuples returned by SQL.
+It is important to note that this clause is not supported by all SQL versions.
+The LIMIT clause can also be specified using the SQL 2008 OFFSET/FETCH FIRST clauses.
+The limit/offset expressions must be a non-negative integer.
+*Sets a upper limit
+
+10. What does the TOP clause do?
+The TOP filter is a proprietary T-SQL feature you can use to limit the number or percentage of rows
+your query returns.
+*Does the same thing as the LIMIT clause and the LIMIT clause is not implemented in Microsoft SQL program and TOP clause is 
+*Goes into the SELECT clause
+
+11. What doest he offset...fetch do?
+The OFFSET-FETCH filter is considered an extension to the ORDER BY clause. 
+With the OFFSET clause you indicate how many rows to skip, and with the FETCH clause you indicate how many rows to filter
+after the skipped rows.
+*Can have a offset without fetch, but not the other way around because it would do the same thing as TOP or LIMIT does
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

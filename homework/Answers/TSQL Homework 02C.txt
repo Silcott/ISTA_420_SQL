@@ -1,0 +1,97 @@
+-- Name: James Silcott
+-- Homework: ISTA420-02C
+-- Date: July 14, 2020
+
+Chapter 2: 73-93 pages
+1. List the date/time types in T-SQL.
+DATETIME
+SMALLDATETIME
+DATE
+TIME
+DATETIME
+DATETIMEOFFSET
+
+2. How do you express a date/time literal in T-SQL?
+T-SQL doesn’t provide the means to express a date
+and time literal; instead, you can specify a literal of a different type that can be converted—explicitly or
+implicitly—to a date and time data type. It is a best practice to use character strings to express date and
+time values, as shown in the following example:
+
+SELECT orderid, custid, empid, orderdate
+FROM Sales.Orders
+WHERE orderdate = '20160212';
+
+
+3. What is the setting DATEFORMAT used for?
+Note that the LANGUAGE/DATEFORMAT setting affects only the way the values you enter are interpreted; 
+these settings have no impact on the format used in the output for presentation purposes.
+Output format is determined by the database interface used by the client tool (such as ODBC) 
+and not by the LANGUAGE/
+DATEFORMAT setting. For example, OLE DB and ODBC present DATE values in the format ‘YYYY-
+MM-DD’.
+
+
+4. Write a T-SQL snippet changing the date format to German. Read the documentation on how to do
+this.
+SET LANGUAGE German;
+SELECT CAST('20160212' AS DATE);
+
+
+5. What is the dierence between CAST(), CONVERT(), and PARSE()?
+, CAST, CONVERT, and PARSE are used to convert one data type into another in SQL Server, 
+there are some subtle differences between them. The  CAST method accepts just two parameters,
+expression, and target type, but CONVERT() also takes a third parameter representing the format 
+of conversion, which is supported for some conversions, like between character strings and date-time 
+values. For example, CONVERT(DATE, '2/7/2015', 101) converts the character string '2/7/2015' to DATE 
+using DATE format 101, representing United States standard.
+
+By using the PARSE function, you can also indicate the culture by using any culture supported by 
+Microsoft's dot NET framework. For example, PARSE('7/8/2015' AS DATE USING 'en-US') parse the input 
+literal as a DATE by using a United States English Culture, similar to 101 formatting style.
+
+
+Read more: https://javarevisited.blogspot.com/2017/04/difference-between-cast-convert-and-parse-sql-server.html#ixzz6SCxrVKch
+
+
+6. What function returns the current date? This is very useful in a table that maintains a log of events,
+such as user logins.
+SELECT CONVERT(DATETIME, CONVERT(CHAR(12), CURRENT_TIMESTAMP, 114), 114);
+
+
+7. How do you add one day to the current date? Add one week? Add one month? Add one year?
+SELECT DATEADD(day, 1, '20160212');
+
+
+8. Write a SQL snippet to return the number of years between your birth date and today's date.
+SELECT DATEDIFF(year, '197804119', CURRENT_TIMESTAMP);
+
+
+9. How do you check a string literal to see if it represents a valid date?
+To check the validity of the data, write a query
+
+
+10. What does EOMONTH() do? Give an example of why this might be very useful.
+The EOMONTH function accepts an input date and time value and returns the respective end-of-
+month date as a DATE typed value. The function also supports an optional second argument indicating
+how many months to add (or subtract, if negative).
+advantage that you can use it to compute the begin-
+ning or end of other parts (day, month, quarter, year).
+
+11. Payments are due exactly 30 days from the date of the last function. Write a select query that calculates
+the date of the next payment. Pretend we want to update a column in a database that contains the
+date of the next payment. We will do this when we write UPDATE queries.
+
+??? 
+
+
+12. Suppose your son or daughter wants to run a query every day that tells them the number of days until
+their 16th birthday. Write a select query that does this.
+
+
+SELECT name,
+       DATEDIFF(day, 20110727 as sonsBDAY, DATEADD(year, 16, sonsBDAY) as ageSixteen)  
+         AS totalDayOld
+FROM dates;
+
+???
+

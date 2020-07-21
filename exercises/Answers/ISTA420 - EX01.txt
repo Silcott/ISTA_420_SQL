@@ -1,0 +1,46 @@
+-- Name: James Silcott
+-- Exercise: ISTA420-01
+-- Date: July 9, 2020
+
+
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Try the new cross-platform PowerShell https://aka.ms/pscore6
+
+PS C:\Users\silco> cd .\quantico06\
+PS C:\Users\silco\quantico06> cd .\playpen\
+PS C:\Users\silco\quantico06\playpen> .\sqlite3.exe
+SQLite version 3.32.3 2020-06-18 14:00:33
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite> create table motor_info (
+   ...> vin integer pimary key,
+   ...> year integer,
+   ...> miles float,
+   ...> make text,
+   ...> owners text);
+sqlite> .table
+motor_info
+sqlite> .schema motor_info
+CREATE TABLE motor_info (
+vin integer pimary key,
+year integer,
+miles float,
+make text,
+owners text);
+sqlite> insert into motor_info (vin, year, miles, make, owners) values (123456789, 2020, 1523, "Ford", "Jimmy Kimmel");
+sqlite> select vin, year, miles, make, owners from motor_info;
+123456789|2020|1523.0|Ford|Jimmy Kimmel
+sqlite> .headers on
+sqlite> .echo on
+sqlite> select vin, year, miles, make, owners from motor_info;
+select vin, year, miles, make, owners from motor_info;
+vin|year|miles|make|owners
+123456789|2020|1523.0|Ford|Jimmy Kimmel
+sqlite> drop table motor_info;
+drop table motor_info;
+sqlite> .table
+.table
+sqlite>

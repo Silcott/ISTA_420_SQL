@@ -1,0 +1,98 @@
+-- Name: James Silcott
+-- Homework: ISTA420-03
+-- Date: July 15, 2020
+
+Chapter 3:
+1. In general, why would you even want to join two (or more) tables together? This is a good time to
+think about the nature of relational algebra.
+
+Logical query processing describes a generic series of logical steps that for any specified query
+produces the correct result, whereas physical query processing is the way the query is processed by the
+RDBMS engine in practice. Some phases of logical query processing of joins might sound inefficient,
+but remember that the query will be optimized by the physical implementation. It’s important to stress
+the term logical in logical query processing. The steps in the process apply operations to the input 
+tables based on relational algebra.
+
+
+
+2. Describe in your own words the output from an inner join.
+An SQL INNER JOIN is same as JOIN clause, combining rows from two or more tables. 
+An inner join of A and B gives the result of A intersect B, i.e. the inner part of a Venn diagram
+intersection. Inner joins use a comparison operator to match rows from two tables based on the 
+values in common columns from each table.
+
+
+
+
+3. Describe in your own words the output from an outer join.
+In SQL the OUTER JOIN combines the results of both left and right outer joins and returns 
+all (matched or unmatched) rows from the tables on both sides of the join clause.
+
+
+
+
+4. Describe in your own words the output from an cross join.
+In SQL, the CROSS JOIN is used to combine each row of the first table with each row of the second table.
+It is also known as the Cartesian join since it returns the Cartesian product of the sets of rows 
+from the joined tables.
+
+
+
+
+
+5. A convenient mnemonic for remembering the various joins is \Ohio." Why is this true?
+whats round on each end and hi in the middle
+
+
+
+6. Give an example of a composite join.
+composite join is simply a join where you need to match multiple attributes from each side. 
+You usually need such a join when a primary key–foreign key relationship is based on more than one
+attribute. For example, suppose you have a foreign key defined on dbo.Table2, columns col1, col2,
+referencing dbo.Table1, columns col1, col2, and you need to write a query that joins the two based on
+this relationship. The FROM clause of the query would look like this:
+FROM dbo.Table1 AS T1
+INNER JOIN dbo.Table2 AS T2
+ON T1.col1 = T2.col1
+AND T1.col2 = T2.col2
+
+
+
+7. What is the dierence between the following two queries? The business problem is \How many orders
+do we have from each customer?"
+
+================first query===============
+SELECT C.custid, COUNT(*) AS numorders
+FROM Sales.Customers AS C
+LEFT OUTER JOIN Sales.Orders AS O
+ON C.custid = O.custid
+GROUP BY C.custid;
+
+******TOP this counts everything
+
+================second query===============
+SELECT C.custid, COUNT(O.orderid) AS numorders
+FROM Sales.Customers AS C
+LEFT OUTER JOIN Sales.Orders AS O
+ON C.custid = O.custid
+GROUP BY C.custid;
+
+
+cross-join : cartesan product
+select e.country, s.country from employees e join suppliers s; gives 261 records table times table
+from employees e join suppliers s
+
+inner: takes the above result and adds a predicate of what things match
+select e.country, s.country from employees e join suppliers s on s.county like e.country;;
+
+outer - includes nulls - goes back and adds records
+select e.country, s.country from employees e join suppliers s; gives 261 records table times table
+left join suppliers s
+
+
+8. What might be one reason the following query does not return the column custID in this query?
+SELECT C.custid, C.companyname, O.orderid, O.orderdate
+FROM Sales.Customers AS C
+LEFT OUTER JOIN Sales.Orders AS O
+ON C.custid = O.custid
+WHERE O.orderdate >= '20160101';

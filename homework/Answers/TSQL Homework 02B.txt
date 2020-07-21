@@ -1,0 +1,66 @@
+-- Name: James Silcott
+-- Homework: TSQL 02B
+-- Date: July 8, 2020
+
+1. 
+Data types
+SQL Server supports two kinds of character data types: regular and Unicode. Regular data types include
+CHAR and VARCHAR, and Unicode data types include NCHAR and NVARCHAR. Regular characters use
+1 byte of storage for each character, whereas Unicode data requires 2 bytes per character, and in cases
+in which a surrogate pair is needed, 4 bytes are required.
+
+
+2.
+Collation is a property of character data that encapsulates several aspects: language support, sort
+order, case sensitivity, accent sensitivity, and more.
+In an on-premises SQL Server implementation, collation can be defined at four different levels: 
+instance, database, column, and expression
+
+3.
+The RTRIM and LTRIM functions
+The RTRIM and LTRIM functions return the input string with leading or trailing spaces removed.
+
+4.
+select * from college where name like "institute";
+SELECT college or universtiy
+FROM college
+WHERE Institue
+
+5.
+SELECT CHARINDEX(' ','Barack Hussein Obama');
+
+6.
+SELECT LEFT([NAME], ISNULL(NULLIF(CHARINDEX(' ',[NAME]), 0), LEN([NAME]))) AS First_Name
+
+7.
+A statement having multiple operators is evaluated based on the priority of operators. 
+If all the operators in SQL statement have equal precedence, then the operators are evaluated from left to right. 
+Operators with different precedence are evaluated from highest to lowest.
+NOT
+AND
+OR
+
+8.
+Parantheses
+Multiplication, Division
+SUbtraction, Addition
+
++,-,*,/
+
+
+9.
+The simple CASE form has a single test value or expression right after the CASE keyword that is
+compared with a list of possible values in the WHEN clauses. The searched CASE form is more flexible in
+the sense you can specify predicates in the WHEN clauses rather than being restricted to using equality
+comparisons.
+
+10.
+select substr(contactName, instr(contactName, " ")+1) || ", " || substr(contactName, 1, instr(contactName, " ")-2) from customers limit 5;
+
+11.
+select substr(contactName, instr(contactName, " ")+1) || ", " || substr(contactName, 1, instr(contactName, " ")) from customers limit 5;
+
+Predicate is expression that returns true or false
+Expression is something htat the computer evaluates
+
+

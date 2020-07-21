@@ -1,0 +1,95 @@
+-- Name: James Silcott
+-- Homework: ISTA420 HW01
+-- Date: July 9, 2020
+
+Homework Questions
+1. Give an informal definition of "database" as used in the expression “relational database management system.”
+relational database management systems (RDBMSs). An RDBMS is a database
+management system based on the relational model (a semantic model for representing data), which in
+turn is based on two mathematical branches: set theory and predicate logic.
+
+
+2. Give an informal definition of "database" as used in the expression “Human Resources database.”
+any large store of information that deals with Human Resources
+
+
+3. Give an informal definition of entity integrity.
+ensures that there are no duplicate records within the table and that the field that identifies 
+each record within the table is unique and never null.
+
+
+4. Give an informal definition of referential integrity.
+he property of a relational database that enforces valid relationships between tables, such that 
+no foreign key can contain a value that does not match a primary key in the corresponding table.
+
+
+5. What is a relation as defined in the textbook? A one-word answer to this question is sufficient.
+join
+
+
+
+
+6. Is this table in first normal form? Why or why not? If it is not, how would you change it?
+create table faculty (
+    facID int primary key,
+    facName text,
+    facCreds text);
+facID	facName	facCreds
+1	Alan Alda	BA, MA
+2	Bridgette Bardot	BS, MS, PhD
+3	Casey Cason	AA, BBA, MBA, DEd
+No, the facCreds needs its own seperate tables for each cred
+
+
+
+7. Is this table in second normal form? Why or why not? If it is not, how would you change it?
+create table pets (
+    ownerID int primary key,
+    petID int primary key,
+    ownerFirstName text,
+    ownerLastName text,
+    petName text,
+    petType text);
+ownerID	petID	ownerFirstName	ownerLastName	petName	petType
+1	1	Dom	Delouise	Rex	German Shepherd
+1	2	Dom	Delouise	Lacy	Border Collie
+2	3	Emilio	Estevez	Midnight	Persian Cat
+Yes
+
+
+
+8. Is this table in third normal form? Why or why not? If it is not, how would you change it?
+create table friends (
+    friendID int primary key,
+    friendName text,
+    friendStreet text,
+    friendCity text,
+    friendState text,
+    friendZip text);
+ID	FirstName	LastName	Street	City	State	Zip
+1	Fred	Flintstone	123 Rock Quarry Rd	Bedrock	GA	31905
+2	Greta	Garbo	456 Starlit Ave	Paris	FL	30019
+3	Harry	Houdini	789 Hidden Glen Lane	Alcatraz	CA	00000
+No, the zip code is none key 
+
+
+9. What is an OLTP database? What operations is it optimized for?
+Online transactional processing
+Data is entered initially into an online transactional processing system. The primary focus of an OLTP
+system is data entry and not reporting—transactions mainly insert, update, and delete data. The
+relational model is targeted primarily at OLTP systems, where a normalized model provides both good
+performance for data entry and data consistency. In a normalized environment, each table represents
+a single entity and keeps redundancy to a minimum
+
+
+10. What is a star schema? What operations is it optimized for?
+The simplest data-warehouse design is called a star schema. The star schema includes several
+dimension tables and a fact table. Each dimension table represents a subject by which you want to
+analyze the data. For example, in a system that deals with orders and sales, you will probably want to
+analyze data by dimensions such as customers, products, employees, and time.
+
+
+Homework Exercises
+Install SQL Server Express on a personal computer. See the appendix of the book, Getting Started, if you run into problems. Please, please check the system requirements before you do this. You cannot install SQL Server on a handheld device or an internet appliance. This may take a couple of hours but you can read the textbook while you are waiting.
+Install SQL Server Management Studio on a personal computer. See the cautions above. This may take a long time as well.
+We will be downloading and installing the database the text uses. Read the Introduction. This can be obtained from http://aka.ms/T-SQLFund3e/downloads.

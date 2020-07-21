@@ -1,0 +1,144 @@
+Name : James Silcott
+File : lab00a-silcott.txt
+Date : July 1, 2020
+
+
+C:\Users\silco\quantico06>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 8A95-1A36
+
+ Directory of C:\Users\silco\quantico06
+
+07/01/2020  10:31 AM    <DIR>          .
+07/01/2020  10:31 AM    <DIR>          ..
+07/01/2020  10:32 AM    <DIR>          ISTA420
+               0 File(s)              0 bytes
+               3 Dir(s)  215,429,046,272 bytes free
+
+C:\Users\silco\quantico06>help > help.txt
+
+C:\Users\silco\quantico06>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 8A95-1A36
+
+ Directory of C:\Users\silco\quantico06
+
+07/01/2020  10:37 AM    <DIR>          .
+07/01/2020  10:37 AM    <DIR>          ..
+07/01/2020  10:37 AM             5,740 help.txt
+07/01/2020  10:32 AM    <DIR>          ISTA420
+               1 File(s)          5,740 bytes
+               3 Dir(s)  215,428,157,440 bytes free
+
+C:\Users\silco\quantico06>notepad help.text
+
+C:\Users\silco\quantico06>notepad help.text
+
+C:\Users\silco\quantico06>readme help.txt
+'readme' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\silco\quantico06>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 8A95-1A36
+
+ Directory of C:\Users\silco\quantico06
+
+07/01/2020  10:38 AM    <DIR>          .
+07/01/2020  10:38 AM    <DIR>          ..
+07/01/2020  10:38 AM                 0 help.text
+07/01/2020  10:37 AM             5,740 help.txt
+07/01/2020  10:32 AM    <DIR>          ISTA420
+               2 File(s)          5,740 bytes
+               3 Dir(s)  215,428,546,560 bytes free
+
+C:\Users\silco\quantico06>notepad help.text
+
+C:\Users\silco\quantico06>notepad help.tex
+
+C:\Users\silco\quantico06>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 8A95-1A36
+
+ Directory of C:\Users\silco\quantico06
+
+07/01/2020  10:38 AM    <DIR>          .
+07/01/2020  10:38 AM    <DIR>          ..
+07/01/2020  10:38 AM                 0 help.text
+07/01/2020  10:37 AM             5,740 help.txt
+07/01/2020  10:32 AM    <DIR>          ISTA420
+               2 File(s)          5,740 bytes
+               3 Dir(s)  215,428,067,328 bytes free
+
+C:\Users\silco\quantico06>notepad help.txt
+
+C:\Users\silco\quantico06>notepad mylittlepony.txt
+
+C:\Users\silco\quantico06>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 8A95-1A36
+
+ Directory of C:\Users\silco\quantico06
+
+07/01/2020  10:42 AM    <DIR>          .
+07/01/2020  10:42 AM    <DIR>          ..
+07/01/2020  10:38 AM                 0 help.text
+07/01/2020  10:37 AM             5,740 help.txt
+07/01/2020  10:32 AM    <DIR>          ISTA420
+07/01/2020  10:42 AM                 0 mylittlepony.txt
+               3 File(s)          5,740 bytes
+               3 Dir(s)  215,427,178,496 bytes free
+
+C:\Users\silco\quantico06>type mylittlepony.txt
+
+C:\Users\silco\quantico06>note mylittlepony.txt
+'note' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\silco\quantico06>notepad mylittlepony.txt
+
+C:\Users\silco\quantico06>type mylittlepony.txt
+This is my first file!!
+C:\Users\silco\quantico06>cd ISTA420\labs>
+The syntax of the command is incorrect.
+
+C:\Users\silco\quantico06>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 8A95-1A36
+
+ Directory of C:\Users\silco\quantico06
+
+07/01/2020  10:42 AM    <DIR>          .
+07/01/2020  10:42 AM    <DIR>          ..
+07/01/2020  10:38 AM                 0 help.text
+07/01/2020  10:37 AM             5,740 help.txt
+07/01/2020  10:32 AM    <DIR>          ISTA420
+07/01/2020  10:43 AM                23 mylittlepony.txt
+               3 File(s)          5,763 bytes
+               3 Dir(s)  215,425,871,872 bytes free
+
+C:\Users\silco\quantico06>cd ISTA420
+
+C:\Users\silco\quantico06\ISTA420>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 8A95-1A36
+
+ Directory of C:\Users\silco\quantico06\ISTA420
+
+07/01/2020  10:32 AM    <DIR>          .
+07/01/2020  10:32 AM    <DIR>          ..
+07/01/2020  10:32 AM    <DIR>          exercises
+07/01/2020  10:32 AM    <DIR>          homework
+07/01/2020  10:32 AM    <DIR>          labs
+               0 File(s)              0 bytes
+               5 Dir(s)  215,425,871,872 bytes free
+
+C:\Users\silco\quantico06\ISTA420>cd labs
+
+C:\Users\silco\quantico06\ISTA420\labs>notepad lab00a-silcott.txt
+
+C:\Users\silco\quantico06\ISTA420\labs>
+
+control A - selects all
+control C - copy
+control v - pastes

@@ -1,0 +1,64 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Try the new cross-platform PowerShell https://aka.ms/pscore6
+
+PS C:\Users\silco> cd .\quantico06\
+PS C:\Users\silco\quantico06> dir
+
+
+    Directory: C:\Users\silco\quantico06
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----         7/8/2020  11:29 AM                ISTA220
+d-----         7/8/2020  11:40 AM                ISTA420
+d-----         7/9/2020   5:04 PM                playpen
+-a----         7/1/2020  11:47 AM            202 1. Assignment.txt
+-a----         7/8/2020  11:47 AM          18471 adding_git_repos.txt
+-a----         7/2/2020  12:02 PM            703 first.md
+-a----         7/1/2020  11:17 AM              0 first.md.txt
+-a----         7/1/2020  10:38 AM              0 help.text
+-a----         7/1/2020  10:37 AM           5740 help.txt
+-a----         7/2/2020  12:03 PM          31018 Markdown example.txt
+-a----         7/1/2020  10:43 AM             23 mylittlepony.txt
+-a----         7/2/2020  11:12 AM          21476 Notes - 2 July.txt
+-a----         7/2/2020   9:44 AM         517120 sqldiff.exe
+-a----         7/2/2020   9:44 AM        2033152 sqlite3_analyzer.exe
+
+
+PS C:\Users\silco\quantico06> cd .\ISTA420\
+PS C:\Users\silco\quantico06\ISTA420> dir
+
+
+    Directory: C:\Users\silco\quantico06\ISTA420
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----         7/1/2020  10:32 AM                exercises
+d-----        7/10/2020   7:08 AM                homework
+d-----         7/1/2020  10:48 AM                labs
+-a----         7/8/2020  11:42 AM             76 README.md
+
+
+PS C:\Users\silco\quantico06\ISTA420> start notepad++ .gitignore
+PS C:\Users\silco\quantico06\ISTA420> git config --global core.excludesfile ~/.gitignore_global
+>>
+PS C:\Users\silco\quantico06\ISTA420> dir
+
+
+    Directory: C:\Users\silco\quantico06\ISTA420
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----         7/1/2020  10:32 AM                exercises
+d-----        7/10/2020   7:08 AM                homework
+d-----         7/1/2020  10:48 AM                labs
+-a----        7/10/2020   7:28 AM            479 .gitignore
+-a----         7/8/2020  11:42 AM             76 README.md
+
+
+PS C:\Users\silco\quantico06\ISTA420>
