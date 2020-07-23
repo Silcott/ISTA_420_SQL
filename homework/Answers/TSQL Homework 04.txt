@@ -6,18 +6,24 @@ Chapter 4:
 1. In your own words, what is a subquery?
 query within another SQL query
 
+*subquerys appear in a: 
+select(specify the columns) 
+
+and 
+
+where clause(row fiter)
 
 
 2. In your own words, what is a self contained subquery?
 completely independent and do not require any input from outer query,
 http://dinesql.blogspot.com/2014/02/types-of-sql-server-sub-queries-self.html
-
+*stand alone query 
 
 
 3. In your own words, what is a correlated subquery?
 a query that requires an input from its outer query.
 http://dinesql.blogspot.com/2014/02/types-of-sql-server-sub-queries-self.html
-
+*
 
 
 4. Give an example of a subquery that returns a single value. When would you use this kind of subquery?

@@ -1,0 +1,75 @@
+-- Name: James Silcott
+-- Homework: ISTA420-05
+-- Date: July 22, 2020
+
+Chapter 5:
+1. What is a table expression? Can you give a technical denition of a table expression?
+table expression is a named query expression that represents a valid relational table. You can use
+table expressions in data-manipulation statements much like you use other tables.
+
+
+
+2. In what SQL clause are derived tables (table valued subqueries) located?
+FROM
+
+
+
+3. Why can you refer to column aliases in an outer query that you dened in an inner table valued
+subquery?
+One of the benefits of using table expressions is that, in any clause of the outer query, you can refer to
+column aliases that were assigned in the SELECT clause of the inner query. This behavior helps you get
+around the fact that you can’t refer to column aliases assigned in the SELECT clause in query clauses
+that are logically processed prior to the SELECT clause (for example, WHERE or GROUP BY).
+
+
+
+
+4. What SQL key word denes a common table expression?
+WITH
+
+
+
+
+5. When using common table expressions, can a subsequent derived table use a table alias declared in a
+preceding table expression?
+
+
+
+
+
+6. Can a main query refer to a previously dened common table expression by multiple aliases?
+
+
+
+
+
+7. In SQL, is a view a durable object?
+
+
+
+
+
+8. In a view, what does WITH CHECK OPTION do? Why is this important?
+In the header of the view, under the WITH clause, you can specify attributes such as
+ENCRYPTION and SCHEMABINDING, and at the end of the query you can specify WITH CHECK OPTION.
+
+
+
+9. In a view, what does SCHEMABINDING do? Why is this important?
+The SCHEMABINDING option is available to views and UDFs; it binds the schema of referenced objects
+and columns to the schema of the referencing object. It indicates that referenced objects cannot be
+dropped and that referenced columns cannot be dropped or altered.
+
+
+
+10. What is a table valued function?
+
+
+
+
+11. What does the APPLY operator do?
+
+
+
+
+12. What are the two forms of the APPLY operator? Give an example of each.
