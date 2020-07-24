@@ -32,19 +32,19 @@ WITH
 
 5. When using common table expressions, can a subsequent derived table use a table alias declared in a
 preceding table expression?
-
+Yes, From clause excutes first
 
 
 
 
 6. Can a main query refer to a previously dened common table expression by multiple aliases?
-
+Yes 
 
 
 
 
 7. In SQL, is a view a durable object?
-
+Yes, Views and in-line table-valued functions are reuseable because of the definitions are stored as permanent objects in the database
 
 
 
@@ -63,12 +63,17 @@ dropped and that referenced columns cannot be dropped or altered.
 
 
 10. What is a table valued function?
-
+Derived tables and CTEs have a single-statement scope, which means they are not reusable. Views
+and inline table-valued functions (inline TVFs) are two types of table expressions whose definitions are
+stored as permanent objects in the database, making them reusable.
 
 
 
 11. What does the APPLY operator do?
-
+The APPLY operator is a powerful table operator. Like all table operators, APPLY is used in the FROM
+clause of a query. There are two supported types of APPLY: CROSS APPLY and OUTER APPLY. Like the
+JOIN table operator, APPLY performs its work in logical-query phases. CROSS APPLY implements only
+one logical-query processing phase, whereas OUTER APPLY implements two.
 
 
 
