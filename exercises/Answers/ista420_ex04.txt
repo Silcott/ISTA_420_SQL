@@ -1,0 +1,44 @@
+-- Name: James Silcott
+-- Exercise: ISTA420-04
+-- Date: July 22, 2020
+
+
+.echo on
+.headers on
+
+-- 1. Use a derived table to build a query that returns the number of distinct products per year that each
+-- customer ordered. Use internal aliasing. Use a variable to set the customer number. For example, if
+-- the customer ID is 1234, the query should report the number of distinct products ordered by customer
+-- 1234 for the years 2014, 2015, and 2016.
+
+
+
+
+
+-- 2. Use multiple common table expressions to build a query that returns the number of distinct products
+-- per year that each country's customers ordered. Use external aliasing. Use a variable to set the country
+-- name. For example, if the country name is France, the query should report the number of distinct
+-- products ordered by French customers for the years 2014, 2015, and 2016.
+
+
+
+
+-- 3. Create a view that shows, for each year, the total dollar amount spent by customers in each country
+-- for all the years in the database.
+
+
+
+
+
+-- 4. Create an inline table valued function that accepts as a parameter a country name and returns a table
+-- with the distinct products ordered by customers from that country. Products are to be identied by
+-- both product ID and product name.
+
+
+
+
+
+
+-- 5. Use the CROSS APPLY operator to create a query showing the top three products shipped to customers
+-- in each country. Your report should contain the name of the country, the product id, the product name,
+-- and the number of products shipped to customers in that country.

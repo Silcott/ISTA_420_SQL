@@ -18,13 +18,16 @@ select productid, productname from products where productname like "%sauce%";
 select productid, productname from products where productname like "%dried%"; 
 
 --5. What employees ship products to Germany in December?
-
+select employeeid, shipcountry, shippeddate from orders where shipcountry = "Germany" AND  shippeddate like "%-12-%" order by employeeid ;
 
 --6. We have an issue with product 19. I need to know thje total amount and the net amount of all orders for product 19 where the customer too a discount?
-
+.select productid, SUM(UnitPrice), SUM(Quantity) from order_details  where productid = 19 AND Discount >0;
 
 --7. I need a list of employees by title, first name, and last name, with the employee's position under their names, and a line separating each employee.
-
+Select titleofcourtesy || " " || firstName || " " || lastname ||'
+ ' || title || '
+ ' || " " ||'
+ 'from employees;
 
 
 

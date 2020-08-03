@@ -1,0 +1,156 @@
+-- Name: James Silcott
+-- File: ISTA420_HW07.txt
+-- Date: July 30, 2020
+
+1. What is a window function?
+*****MEMORIZE*****
+A window function is a function that, for each row, computes a scalar result value based on a calculation
+against a subset of the rows from the underlying query. 
+
+exceutes once for each row over the subset
+******************
+
+The subset of rows is known as a window and
+is based on a window descriptor that relates to the current row. The syntax for window functions uses a
+clause called OVER, in which you provide the window specification.
+
+
+2. What does PARTITION do?
+
+The window-partition clause (PARTITION BY) restricts the window to the subset of rows that have
+the same values in the partitioning columns as in the current row
+
+
+
+3. What does ORDER BY do?
+
+The window-order clause (ORDER BY) defines ordering, but don’t confuse this with presentation ordering. 
+In a window aggregate function, window ordering supports a frame specification. In a
+window ranking function, window ordering gives meaning to the rank. In our example, the window
+ordering is based on ordermonth.
+
+
+
+4. What does ROWS BETWEEN do?
+
+A window-frame clause (ROWS BETWEEN <top delimiter> AND <bottom delimiter>) filters a frame,
+or a subset, of rows from the window partition between the two specified delimiters. In this example,
+the frame is defined with no low boundary point (UNBOUNDED PRECEDING) and extends until the
+current row (CURRENT ROW). In addition to the window-frame unit ROWS, there’s another unit called
+RANGE, but it’s implemented in T-SQL in a limited capacity
+
+
+
+5. What is a ranking window function? Why would you use it? Give an example.
+In a
+window ranking function, window ordering gives meaning to the rank. In our example, the window
+ordering is based on ordermonth
+
+You use ranking window functions to rank each row with respect to others in the window. 
+T-SQL supports four ranking functions: ROW_NUMBER, RANK, DENSE_RANK, and NTILE. The following query
+demonstrates the use of these functions:
+
+SELECT orderid, custid, val,
+ROW_NUMBER() OVER(ORDER BY val) AS rownum,
+RANK() OVER(ORDER BY val) AS rank,
+DENSE_RANK() OVER(ORDER BY val) AS dense_rank,
+NTILE(100) OVER(ORDER BY val) AS ntile
+FROM Sales.OrderValues
+ORDER BY val;
+
+
+
+6. What is an oset window function? Why would you use it? Give an example.
+You use offset window functions to return an element from a row that is at a certain offset from the
+current row or at the beginning or end of a window frame. T-SQL supports two pairs of offset functions:
+LAG and LEAD, and FIRST_VALUE and LAST_VALUE.
+
+
+
+
+7. What do LEAD and LAG DO
+The LAG and LEAD functions support window partitions and window order clauses. 
+There’s no relevance to window framing here. You use these functions to obtain an element from a row that is at
+a certain offset from the current row within the partition, based on the indicated ordering. The LAG
+function looks before the current row, and the LEAD function looks ahead. The first argument to the
+functions (which is mandatory) is the element you want to return; the second argument (optional) is the
+offset (1 if not specified); the third argument (optional) is the default value to return if there is no row at
+the requested offset (which is NULL if not specified otherwise).
+
+
+
+8. What do FIRST VALUE and LAST VALUE do?
+You use the FIRST_VALUE and LAST_VALUE functions to return an element from the first and last
+rows in the window frame, respectively. Therefore, these functions support window-partition, window-
+order, and window-frame clauses. If you want the element from the first row in the window partition,
+use FIRST_VALUE with the window frame extent ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW. 
+If you want the element from the last row in the window partition, use LAST_VALUE
+with the window frame extent ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING.
+Note that if you specify ORDER BY without a window-frame unit (such as ROWS), the bottom delim-
+iter will by default be CURRENT ROW, and clearly that’s not what you want with LAST_VALUE. Also, for
+performance-related reasons that are beyond the scope of this book, you should be explicit about the
+window-frame extent even for FIRST_VALUE.
+
+
+9. What is an aggragate window function? Why would you use it? Give an example.
+You use aggregate window functions to aggregate the rows in the defined window. They support
+window-partition, window-order, and window-frame clauses.
+
+
+
+
+10. What is a pivot table and what does it do?
+
+Used to convert a table expression into another. 
+PIVOT in SQL is used when we want to transfer data from row level to column level
+
+
+
+The solution for pivoting based on an explicit grouped query is standard. T-SQL also supports a
+proprietary table operator called PIVOT that you can use to achieve pivoting in a more concise manner.
+As a table operator, PIVOT operates in the context of the FROM clause like any other table operator (for
+example, JOIN). It operates on the source table or table expression provided to it as its left input, pivots
+the data, and returns a result table. The PIVOT operator involves the same logical processing phases as
+described earlier (grouping, spreading, and aggregating), only it requires less code than the previous
+solution.
+
+
+
+11. In mathematical theory, what is a power set? How does this denition of power set relate to grouping
+sets?
+In set theory, the
+set of all subsets of elements that can be produced from a particular set is called the power set. You can
+think of the CUBE subclause as producing the power set of grouping sets that can be formed from the
+given set of elements.
+Instead of using the GROUPING SETS subclause in the previous query to define the four grouping
+sets (empid, custid), (empid), (custid), and (), you can simply use CUBE(empid, custid).
+
+
+
+12. What is a bit array? How can you implement a bit array to represent a set of 
+ags? How does the
+GROUPING ID() function implement a bit array?
+
+A bit array (also known as bit map, bit set, bit string, or bit vector) is an array data structure 
+that compactly stores bits. It can be used to implement a simple set data structure. 
+A bit array is effective at exploiting bit-level parallelism in hardware to perform operations quickly. 
+A typical bit array stores kw bits, where w is the number of bits in the unit of storage, such as a byte or word, 
+and k is some nonnegative integer. If w does not divide the number of bits to be stored, some space is wasted 
+due to internal fragmentation.
+
+T-SQL supports another function, called GROUPING_ID, that can further simplify the process of
+associating result rows and grouping sets. You provide the function with all elements that participate 
+in any grouping set as inputs—for example, GROUPING_ID(a, b, c, d)—and the function returns
+an integer bitmap in which each bit represents a different input element—the rightmost element
+represented by the rightmost bit. For example, the grouping set (a, b, c, d) is represented by the integer
+0 (0×8 + 0×4 + 0×2 + 0×1). The grouping set (a, c) is represented by the integer 5 (0×8 + 1×4 + 0×2 +
+1×1), and so on.
+Instead of calling the GROUPING function for each grouping element as in the previous query, you
+can call the GROUPING_ID function once and provide it with all grouping elements
+
+13. Read the documentation on the UNIX/Linux chmod command. How would interpret this command:
+chmod 755 myscript.sql?
+
+755 means read and execute access for everyone and also write access for the owner of the file. 
+When you perform chmod 755 filename command you allow everyone to read and execute the file, 
+the owner is allowed to write to the file as well.

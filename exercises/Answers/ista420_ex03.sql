@@ -54,13 +54,14 @@ select distinct c.region, c.city, c.postalcode, e.region, e.city, e.postalcode f
 
 
 -- 3. Using subqueries, create a report that lists the ten most expensive products.
-
+select DISTINCT productid, unitprice from order_details order by unitprice DESC LIMIT 10;
 
 
 -- 4. Using subqueries, create a report that shows the date of the last order by all employees.
-
+ select DISTINCT  EmployeeID, MAX(orderdate) from orders group by employeeid;
 
 
 -- 5. Using subqueries, create a line item report that contains a line for each product in the order with the
 -- following columns: the order id, the product id, the unit price, the quantity sold, the line item price,
--- and the percent of that line item constitutes of the total amount of the order.
+-- and the perc.schemaent of that line item constitutes of the total amount of the order.
+select orderid, productid, unitprice, quantity, discount from order_details;

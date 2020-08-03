@@ -1,0 +1,184 @@
+-- Name: James Silcott
+-- File: progex05-Silcott.txt
+-- Date: August 2, 2020
+
+-- SELECT name FROM sys.schemas
+-- SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA
+
+
+-- 1. Create an appropriate table schema.
+DROP SCHEMA IF EXISTS USA;
+DROP SCHEMA IF EXISTS UpdatedPresident
+GO
+DROP TABLE IF EXISTS Presidents;
+DROP TABLE IF EXISTS Obama
+GO
+
+CREATE SCHEMA USA;
+GO
+CREATE SCHEMA UpdatedPresident;
+GO
+
+
+
+
+-- 2. Insert the CSV data into the table you just created.
+CREATE TABLE Presidents
+(
+ID varchar(20),
+Last_Name varchar (50),
+First_Name varchar (50),
+Middle_Name varchar (50),
+Order_of_Presidency varchar (50),
+Date_of_Birth varchar (50),
+Date_of_Death varchar (50),
+Town_or_Country_of_Birth varchar (50),
+State_of_Birth varchar (50),
+Home_State varchar (50),
+Party_Affliliation varchar (50),
+Date_Took_Office varchar (50),
+Date_Left_Office varchar (50),
+Assassination_Attempt varchar (50),
+Assassinated varchar (50),
+Religous_Affliliation varchar (50),
+Image_Path varchar (50),
+);
+
+
+BULK INSERT dbo.Presidents FROM 'C:\Users\silco\OneDrive\Documents\USP.csv'
+WITH
+(
+	DATAFILETYPE = 'char',
+	FIELDTERMINATOR = ',',
+	ROWTERMINATOR = '\n'
+);
+GO
+
+
+
+
+
+-- 3. Delete the column that contains the path to the images.
+ALTER TABLE dbo.Presidents DROP COLUMN Image_Path;
+GO
+
+
+
+
+
+
+-- 4. Delete the first record from your table using the output clause. This is the header.
+-- • You may combine the following two steps.
+-- • Alter the presidents table by adding an integer column, beginning at 1 and ending at 44, that is
+-- NOT NULL and UNIQUE.
+-- • Alter the presidents table by adding the column you created as a primary key column with a new
+-- constraint.
+DELETE TOP(1) dbo.Presidents
+OUTPUT deleted.*
+
+
+
+
+
+-- 5. Bring the data up to date by updating the last row. Use the output clause.
+UPDATE dbo.Presidents
+SET Date_Left_Office = '1/20/2017'
+WHERE Last_Name = 'Obama';
+
+
+
+
+
+-- 6. Bring the data up to date by adding a new row. Use the output clause.
+INSERT INTO dbo.Presidents
+(
+inserted.ID,
+inserted.Last_Name,
+inserted.First_Name,
+inserted.Middle_Name,
+inserted.Order_of_Presidency,
+inserted.Date_of_Birth,
+inserted.Date_of_Death,
+inserted.Town_or_Country_of_Birth,
+inserted.State_of_Birth,
+inserted.Home_State,
+inserted.Party_Affliliation,
+inserted.Date_Took_Office,
+inserted.Date_Left_Office,
+inserted.Assassination_Attempt,
+inserted.Assassinated,
+inserted.Religous_Affliliation
+)
+VALUES
+(
+45,
+'Trump',
+'Donald',
+'John',
+45,
+'6/14/1946',
+NULL,
+'Queens',
+'New York',
+'New York City',
+'Republican',
+'1/20/2017',
+NULL,
+NULL,
+NULL,
+'Unaffiliated'
+);
+
+SELECT * FROM Presidents;
+
+
+
+-- 7. How many presidents from each state belonged to the various political parties? Aggregate by party
+-- and state. Note that this will in effect be a pivot table.
+SELECT 
+home_state, Party_Affliliation, COUNT(Party_Affliliation) as numberOfParties
+From Presidents
+group by Home_State, Party_Affliliation
+Order by Home_State;
+
+
+
+
+
+-- 8. Create a report showing the number of days each president was in office.
+SELECT ID, Last_Name, First_Name, DATEDIFF(day, (SELECT CONVERT(DATE, Date_Took_Office, 101)), (SELECT CONVERT(DATE, Date_Left_Office, 101))) as DaysInOffice
+From Presidents;
+
+
+-- 9. Create a report showing the age (in years) of each present when he took office.
+SELECT ID, Last_Name, First_Name, DATEDIFF(year, (SELECT CONVERT(DATE, Date_of_Birth, 101)), (SELECT CONVERT(DATE, Date_Took_Office, 101))) as AgeTookOffice
+From Presidents;
+
+
+-- 10. See if there is any correlation between a president's party and reported religion, or lack of reported
+-- religion.
+SELECT  
+Religous_Affliliation,
+COUNT(Religous_Affliliation) as numberOfReligions
+From Presidents
+group by Religous_Affliliation
+UNION
+SELECT 
+Party_Affliliation,
+COUNT(Party_Affliliation) as numberOfParties
+From Presidents
+GROUP BY Party_Affliliation
+EXCEPT
+SELECT  
+Religous_Affliliation,
+COUNT(Religous_Affliliation) as numberOfReligions
+From Presidents
+group by Religous_Affliliation
+UNION
+SELECT 
+Party_Affliliation,
+COUNT(Party_Affliliation) as numberOfParties
+From Presidents
+GROUP BY Party_Affliliation
+ORDER BY numberOfReligions DESC;
+

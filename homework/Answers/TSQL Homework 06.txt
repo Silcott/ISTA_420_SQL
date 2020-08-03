@@ -1,0 +1,157 @@
+-- Name: James Silcott
+-- Homework: ISTA420-06
+-- Date: July 29, 2020
+
+Chapter 6:
+1. What does a set operator do?
+A set operator compares complete rows between the results of the two input queries involved
+UNION [DISTINCT];
+UNION ALL;
+EXCEPT [DISTINCT];
+EXCEPT ALL;
+INTERSECT [DISTINCT];
+INTERSECT ALL.
+
+
+
+2. What are the general requirements of a set operator
+column count must be the same;
+data types of retrieved columns should match or at least should be implicitly convertible by database;
+one can use many set operators for example Query1 UNION ALL Query2 UNION ALL Query3 MINUS Query4 INTERSECT Query5. 
+In such case one should look into used DB documentation what is the order of operators, because for example Oracle executes operators starting from left to right, but DB2 firstly executes Intersect;
+Usually returned column names are taken from the first query;
+Order by clauses for each individual query except the last one cannot be at all (Oracle) or are ignored (MySQL).
+
+
+UNION and INTERSECT operators are commutative, i.e. the order of queries is not important; it doesn't change the final result. See Example 1 and Example 2.
+EXCEPT operator is NOT commutative, it IS important which query is first, which second using EXCEPT operator. See Example 10 and Example 11.
+UNION, EXCEPT and INTERSECT used without anything or with DISTINCT returns only unique values. This is especially interesting when one query returning many nonunique rows is UNIONED to another query returning zero rows (Example 4). The final result contains fewer rows than first query.
+If you know that result sets returned by each query are unique then use UNION ALL, because database doesn't know that and uses more (wasted) resources to filter out duplicates in case of UNION.
+If you need determined ordering then use Order by clause in the last query. Don't assume that rows from first query will always be returned first.
+If you need to distinguish which query produced rows then you can add some tag or flag column indicating which query produced them.
+NULL values using set operators are considered to be equal to each other (Example 9).
+
+
+3. What is a Venn Diagram? This is not in the book.
+A Venn diagram (also called primary diagram, set diagram or logic diagram) is a diagram that shows 
+all possible logical relations between a finite collection of different sets. 
+These diagrams depict elements as points in the plane, and sets as regions inside closed curves. 
+A Venn diagram consists of multiple overlapping closed curves, usually circles, each representing a set. 
+
+
+
+4. Draw a Venn Diagram of the UNION operator. What does it do?
+https://mistercodenet.files.wordpress.com/2018/07/unionvenn.png?w=712
+When two or more sets are added they are termed as Union. The result set of union will contain records from both the sets and the records will be distinct.
+
+The SQL UNION is used to combine two or more record set or SQL SELECT statements. It removes the duplicate records (which maybe present in both the record set) and hence returning a distinct result set.
+
+Union operator is used by simply writing UNION keyword between the two SELECT statement
+
+
+5. Draw a Venn Diagram of the UNION ALL operator. What does it do?
+UNION operator which returns records similar to the UNION, but the records are not distinct
+UNION ALL returns all the records in both the tables.
+UNION ALL operator is used to combine the result sets of two or more SELECT statements. It does not remove duplicate rows between the various SELECT statements
+
+
+6. Draw a Venn Diagram of the INTERSECT operator. What does it do?
+Intersection between the two or more record sets returns the matching values from the record sets.
+https://mistercodenet.files.wordpress.com/2018/07/intersectvenn.png?w=225&h=150
+The SQL INTERSECT operator is used to return the Distinct results of 2 or more SELECT statements. However, it only returns the rows selected by all queries or data sets. If a record exists in one query and not in the other, it will be omitted from the INTERSECT results.
+
+
+
+
+7. If SQL Server supported the INTERSECT ALL operator, what would it do?
+The difference to the INTERSECT operator is very simple: INTERSECT ALL doesn’t eliminate duplicate rows. 
+
+
+
+
+8. Draw a Venn Diagram of the EXCEPT operator. What does it do?
+https://mistercodenet.files.wordpress.com/2018/07/exceptvenn.png?w=247&h=152
+Except in SQL server denotes Complement in Mathematical set. 
+Complement implies that two related sets can be subtracted.
+
+The SQL EXCEPT operator is used to return all rows in the first SELECT statement that 
+are not returned by the second SELECT statement. Each SELECT statement will define a dataset.
+
+The EXCEPT operator will retrieve all records from the first dataset and 
+then remove from the results all records from the second dataset.
+
+
+
+9. If SQL Server supported the EXCEPT ALL operator, what would it do?
+ANSI SQL standard describes EXCEPT ALL which returns all records from the first table which 
+are not present in the second table, leaving the duplicates as is. 
+Unfortunately, SQL Server does not support this operator.
+
+Similar behavior can be achieved using NOT IN or NOT EXISTS constructs.
+But in SQL Server, IN predicate does not accept more than one field. 
+NOT EXISTS accepts any number of correlated columns, but it requires extra checks in the WHERE clause, 
+since equality operator does not treat two NULL values as equal. Each pair or nullable columns should be 
+additionally checked for a NULL in both fields. This can only be done using OR predicates or COALESCE, 
+neither of which adds to performance.
+
+
+10. What is the precedence of the set operators?
+The INTERSECT operator precedes UNION and EXCEPT,
+and UNION and EXCEPT are evaluated in order of appearance. 
+Using the ALL variant doesn’t change the precedence. 
+In a query that contains multiple set operators, first INTERSECT operators are evaluated, 
+and then operators with the same precedence are evaluated based on their order of appearance.
+
+SELECT statement_1 
+   UNION
+   SELECT statement_2 
+   EXCEPT 
+   SELECT statement_3 
+   INTERSECT 
+   SELECT statement_4;
+   
+If more than two component queries are combined using set operators, 
+then Oracle evaluates the set operators from left to right. In the following example, 
+the UNION is evaluated before the INTERSECT:
+
+SELECT cust_nbr, name
+
+FROM customer
+
+WHERE region_id = 5
+
+UNION
+
+SELECT c.cust_nbr, c.name
+
+FROM customer c
+
+WHERE c.cust_nbr IN (SELECT o.cust_nbr
+
+                     FROM cust_order o, employee e
+
+                     WHERE o.sales_emp_id = e.emp_id
+
+                     AND e.lname = 'MARTIN')
+
+INTERSECT
+
+SELECT cust_nbr, name
+
+FROM customer
+
+WHERE region_id = 6;
+
+
+
+11. The symmetric difference of two sets A and B is all elements in A that are also not in A and B, and all
+elements of B that are also not in A and B. For example, if set A consisted of all integers between 1 and
+100 that are divisible by 2, and set B consisted of all integers between 1 and 100 that are divisible by
+3, the symmetric difference of A and B would include all integers in A and B except integers divisible
+by both 2 and 3, e.g., 6, 12, 18, etc. Write a SQL query that computes the symmetric difference of two
+tables A and B.
+
+
+
+
+

@@ -1,0 +1,29 @@
+-- Name: James Silcott
+-- File: quiz05-silcott.txt
+-- Date: July 30, 2020
+
+
+use tsqlv4;
+
+with T as
+(SELECT od.productid, SUM(od.qty) as sumqty, YEAR(o.orderdate) as yr, MONTH(o.orderdate) as mth
+FROM Sales.OrderDetails od
+JOIN Sales.Orders o
+ON od.orderid = o.orderid
+GROUP BY productid, YEAR(o.orderdate), MONTH(o.orderdate))
+SELECT productid, DATEFROMPARTS(yr, mth, 1) as monthyear
+	, sumqty as thisMonth
+	, lag(sumqty) OVER (PARTITION BY productid
+						ORDER BY yr,mth) as lastMonth
+	, sumqty - lag(sumqty) OVER (PARTITION BY productid
+						ORDER BY yr, mth) as diff
+	, (sumqty - LAG(sumqty) OVER(PARTITION BY productid
+						ORDER BY yr, mth) * 1.0) as denominator
+	,sum(sumqty) OVER(PARTITION BY productid
+						ORDER BY yr, mth
+						ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as running,
+CONVERT(DECIMAL(10,2),100.0 * sumqty / LAG(sumqty) OVER(PARTITION BY productid
+ORDER BY yr, mth)) as pctChange,
+SUM(sumqty) OVER(PARTITION BY productid) as totalPerProduct,
+CONVERT(DECIMAL(10,2),100.0 * sumqty / SUM(sumqty) OVER(PARTITION BY productid)) as pctLinePerProduct
+FROM T;
