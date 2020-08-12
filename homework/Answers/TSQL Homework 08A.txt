@@ -1,0 +1,136 @@
+-- Name: James Silcott
+-- File: ISTA420_HW08A.txt
+-- Date: August 4, 2020
+
+
+Chapter 8: pages 249 – 266 
+1. When using INSERT, is the list of columns necessary? Why or why not?
+Specifying the target column names right after the table name is optional, but by doing so, you
+control the value-column associations instead of relying on the order of the columns in the CREATE TABLE statement. 
+In T-SQL, specifying the INTO clause is optional.
+If you don’t specify a value for a column, Microsoft SQL Server will use a default value if one was
+defined for the column.
+
+
+
+
+2. When using INSERT SELECT, do you use a subquery (derived table)? Under what circumstances do
+you not use a subquery?
+
+INSERT INTO dbo.Orders(orderid, orderdate, empid, custid)
+SELECT orderid, orderdate, empid, custid
+FROM Sales.Orders
+WHERE shipcountry = N'UK';
+
+
+
+3. What is the operand for the INSERT EXEC statement?
+
+EXEC statement. Then the procedure name, then 'sigil' @(table) 
+
+
+4. How would you use the INSERT INTO statement?
+It is possible to write the INSERT INTO statement in two ways.
+
+The first way specifies both the column names and the values to be inserted:
+
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+If you are adding values for all the columns of the table, you do not need to specify the column names in the SQL query. 
+However, make sure the order of the values is in the same order as the columns in the table. The INSERT INTO syntax would be as follows:
+
+INSERT INTO table_name
+VALUES (value1, value2, value3, ...);
+
+
+
+
+5. What are the parameters to the BULK INSERT statement?
+BULK INSERT
+   { database_name.schema_name.table_or_view_name | schema_name.table_or_view_name | table_or_view_name }
+      FROM 'data_file'
+     [ WITH
+    (
+   [ [ , ] BATCHSIZE = batch_size ]
+   [ [ , ] CHECK_CONSTRAINTS ]
+   [ [ , ] CODEPAGE = { 'ACP' | 'OEM' | 'RAW' | 'code_page' } ]
+   [ [ , ] DATAFILETYPE =
+      { 'char' | 'native'| 'widechar' | 'widenative' } ]
+   [ [ , ] DATA_SOURCE = 'data_source_name' ]
+   [ [ , ] ERRORFILE = 'file_name' ]
+   [ [ , ] ERRORFILE_DATA_SOURCE = 'data_source_name' ]
+   [ [ , ] FIRSTROW = first_row ]
+   [ [ , ] FIRE_TRIGGERS ]
+   [ [ , ] FORMATFILE_DATA_SOURCE = 'data_source_name' ]
+   [ [ , ] KEEPIDENTITY ]
+   [ [ , ] KEEPNULLS ]
+   [ [ , ] KILOBYTES_PER_BATCH = kilobytes_per_batch ]
+   [ [ , ] LASTROW = last_row ]
+   [ [ , ] MAXERRORS = max_errors ]
+   [ [ , ] ORDER ( { column [ ASC | DESC ] } [ ,...n ] ) ]
+   [ [ , ] ROWS_PER_BATCH = rows_per_batch ]
+   [ [ , ] ROWTERMINATOR = 'row_terminator' ]
+   [ [ , ] TABLOCK ]
+
+   -- input file format options
+   [ [ , ] FORMAT = 'CSV' ]
+   [ [ , ] FIELDQUOTE = 'quote_characters']
+   [ [ , ] FORMATFILE = 'format_file_path' ]
+   [ [ , ] FIELDTERMINATOR = 'field_terminator' ]
+   [ [ , ] ROWTERMINATOR = 'row_terminator' ]
+    )]
+
+
+
+6. Does IDENTITY guarantee uniqueness? If not, how do you guarantee uniqueness?
+The identity property on a column does not guarantee the following:
+
+Uniqueness of the value - Uniqueness must be enforced by using a PRIMARY KEY or UNIQUE constraint or UNIQUE index. 
+
+
+
+
+7. How do you create a SEQUENCE object?
+
+CREATE SEQUENCE [schema_name . ] sequence_name  
+    [ AS [ built_in_integer_type | user-defined_integer_type ] ]  
+    [ START WITH <constant> ]  
+    [ INCREMENT BY <constant> ]  
+    [ { MINVALUE [ <constant> ] } | { NO MINVALUE } ]  
+    [ { MAXVALUE [ <constant> ] } | { NO MAXVALUE } ]  
+    [ CYCLE | { NO CYCLE } ]  
+    [ { CACHE [ <constant> ] } | { NO CACHE } ]  
+    [ ; ]  
+
+8. How do you use a SEQUENCE object?
+
+
+
+
+9. How do you alter a SEQUENCE object?
+You can change any of the sequence properties except the data type with the ALTER SEQUENCE
+command (MINVAL <val>, MAXVAL <val>, RESTART WITH <val>, INCREMENT BY <val>, CYCLE | NO
+CYCLE, or CACHE <val> | NO CACHE). For example, suppose you want to prevent the sequence dbo.
+SeqOrderIDs from cycling. You can change the current sequence definition with the following ALTER SEQUENCE command:
+ALTER SEQUENCE dbo.SeqOrderIDs
+NO CYCLE;
+
+To generate a new sequence value, you need to invoke the standard function NEXT VALUE FOR
+<sequence name>. Here’s an example of invoking the function:
+SELECT NEXT VALUE FOR dbo.SeqOrderIDs;
+
+10. What is the difference between DELETE and TRUNCATE?
+The DELETE statement is a standard statement used to delete data from a table based on an optional
+filter predicate. The standard statement has only two clauses—the FROM clause, in which you specify
+the target table name, and a WHERE clause, in which you specify a predicate. Only the subset of rows
+for which the predicate evaluates to TRUE will be deleted.
+
+The standard TRUNCATE statement deletes all rows from a table. Unlike the DELETE statement, TRUNCATE has no filter.
+
+
+11. What is the difference between DELETE and DROP TABLE?
+
+Delete v/s Drop. Delete statement performs conditional based deletion, 
+whereas Drop command deletes entire records in the table. 
+Delete statement removes only the rows in the table and it preserves the table structure as same,
+and Drop command removes all the data in the table and the table structure.

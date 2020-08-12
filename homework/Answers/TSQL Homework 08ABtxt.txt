@@ -1,0 +1,137 @@
+-- Name: James Silcott
+-- File: ISTA420_HW08A.txt
+-- Date: August 4, 2020
+
+
+Chapter 8: pages 266-287
+1. The sales tax rate for a state just changed. How would you update the state sales tax table to reflect
+the changes? Assume that this table has an ID column, an RATE column, and a STATE column.
+
+UPDATE dbo.OrderDetails
+SET stateTax = stateTax * 1.08
+WHERE state = Maryland
+
+
+
+
+2. The Revenue Division has requested that you provide a report on what the actual sales taxes would
+have been for all orders in the past year, assuming the retroactivity of the new sales tax rate. How
+would you calculate this?
+
+UPDATE OD
+SET stateTax += 8
+FROM dbo.OrderDetails AS OD
+INNER JOIN dbo.Orders AS O
+ON OD.stateTax = O.stateTax
+WHERE O.id = 1;
+
+
+
+3. Explain how the proprietary assignment update command works.
+proprietary UPDATE syntax that both updates data in a table and assigns values
+to variables at the same time. This syntax saves you the need to use separate UPDATE and SELECT
+statements to achieve the same task.
+
+common cases for which you can use this syntax is in maintaining a custom sequence/
+autonumbering mechanism when the identity column property and the sequence object don’t work
+for you. One example is when you need to guarantee that there are no gaps between the values. To
+achieve this, you keep the last-used value in a table, and whenever you need a new value, you use the
+special UPDATE syntax to both increment the value in the table and assign it to a variable
+
+
+4. What is one very important purpose of the MERGE SQL statement? What is ETL (not in book)?
+
+the combination of three INSERT, DELETE and UPDATE statements. 
+So if there is a Source table and a Target table that are to be merged,
+then with the help of MERGE statement, all the three operations (INSERT, UPDATE, DELETE) can be performed at once.
+
+ETL stands for Extract, Transform and Load, which is a process used to collect data from various sources, 
+transform the data depending on business rules/needs and load the data into a destination database.
+
+5. What are the semantics of MERGE?
+
+MERGE target_table USING source_table
+ON merge_condition
+WHEN MATCHED
+    THEN update_statement
+WHEN NOT MATCHED
+    THEN insert_statement
+WHEN NOT MATCHED BY SOURCE
+    THEN DELETE;
+
+
+6. Write a typical INSERT OUTPUT statement.
+
+INSERT INTO dbo.T1(datacol)
+OUTPUT inserted.keycol, inserted.datacol
+INTO @NewRows(keycol, datacol)
+SELECT lastname
+FROM HR.Employees
+WHERE country = N'UK';
+
+
+
+7. Write a typical UPDATE OUTPUT statement.
+
+UPDATE dbo.OrderDetails
+SET discount += 0.05
+OUTPUT
+inserted.orderid,
+inserted.productid,
+deleted.discount AS olddiscount,
+inserted.discount AS newdiscount
+WHERE productid = 51;
+
+
+
+8. Write a typical DELETE OUTPUT statement.
+
+DELETE FROM dbo.Orders
+OUTPUT
+deleted.orderid,
+deleted.orderdate,
+deleted.empid,
+deleted.custid
+WHERE orderdate < '20160101';
+
+
+
+9. Write a typical MERGE OUTPUT statement.
+
+MERGE INTO dbo.Customers AS TGT
+USING dbo.CustomersStage AS SRC
+ON TGT.custid = SRC.custid
+WHEN MATCHED THEN
+UPDATE SET
+TGT.companyname = SRC.companyname,
+TGT.phone = SRC.phone,
+TGT.address = SRC.address
+WHEN NOT MATCHED THEN
+
+
+10. What is nested DML?
+
+T-SQL supports a feature called
+nested DML you can use to directly insert into the final 
+target table only the subset of rows you need
+from the full set of modified rows.
+
+
+11. (Not in book) Write a query adding a new column to a table named PERSON. The new column name
+is DayOfBirth and the data type is string. Use ANSI SQL syntax.
+
+
+
+
+
+
+12. (Not in book) Write a query adding a DEFAULT constraint to the column DayOfBirth. The constraint
+is that the value matches one of SUN, MON, TUE, WED, THU, FRI, or SAT.
+
+
+
+
+
+
+13. (Not in book) Write a query adding a foreign key to the column DayOfBirth. The referenced table is
+named WEEK and the referenced column is ValidDay.

@@ -2,7 +2,7 @@
 .headers on
 
 --Name: James Silcott
---File: lab02b--silcott.sql
+--File: lab02b--silcott.txt
 --Date: July 9, 2020
 
 --1. Who are the customers in N America?

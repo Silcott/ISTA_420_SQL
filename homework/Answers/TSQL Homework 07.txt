@@ -1,6 +1,6 @@
 -- Name: James Silcott
 -- File: ISTA420_HW07.txt
--- Date: July 30, 2020
+-- Date: August 4, 2020
 
 1. What is a window function?
 *****MEMORIZE*****
